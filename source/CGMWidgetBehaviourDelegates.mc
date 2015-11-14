@@ -249,17 +249,17 @@ class SiteSelectMenuDelegate extends Ui.MenuInputDelegate {
   		//sys.println ("SettingsSelectMenuDelegate entered, current value is");
         if (item == :item_1) 
         	{
-			settingText = "phimbycgm";
+			settingText = "mysitename";
 			globalText = settingText;
 			} 
         else if (item == :item_2) 
         	{
-			settingText = "Franky";
+			settingText = "Hollywood";
 			globalText = "Snake";
         	}
        	else if (item == :item_3) 
         	{
-			settingText = "Nightscout-gg";
+			settingText = "NS-horse";
 			globalText = "Horse";
         	}
         	
