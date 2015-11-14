@@ -64,17 +64,26 @@ class CGMWidgetModel
 		sys.println(propunits);
 		sys.println(currentsettings.phoneConnected);
 
-		if (currentsettings.phoneConnected) {
-		globalText = "Awaiting\nResults";
+		if (comms has :makeJsonRequest)
+		{sys.println ("Json request possible");
 		
-    	//sys.println (url);
-// 		comms.makeJsonRequest(url ,{} ,{} ,{});
-    	comms.makeJsonRequest(url ,{"units"=>propunits} ,null ,method(:onReceive));
-     	sys.println ("Receiving");
-     	}
-    	else {
-		globalText = "Phone not\nconnected";
+
+			if (currentsettings.phoneConnected) {
+			globalText = "Awaiting\nResults";
+			
+	    	//sys.println (url);
+			// comms.makeJsonRequest(url ,{} ,{} ,{}); // It used to be possible to give your site a nudge first to improve reliability
+	    	comms.makeJsonRequest(url ,{"units"=>propunits} ,null ,method(:onReceive));
+	     	sys.println ("Receiving");
+	     	}
+	    	else {
+			globalText = "Phone not\nconnected";
+			}
 		}
+		else {
+		globalText = "Cannot connect\nAsk Garmin";
+		}
+		
 		
 	}
 
@@ -219,18 +228,23 @@ class cgmGraphModel
 			//var currentsettings = dvcsettings.getDeviceSettings();
 		sys.println(currentsettings.phoneConnected);
 
-		if (currentsettings.phoneConnected) {
-		globalText = "Awaiting\nResults";
- 		//comms.makeJsonRequest(url ,{} ,{} ,{});
-    	comms.makeJsonRequest(url ,{"count"=>graphpts} ,null ,method(:onGraphReceive));
-    	sys.println ("Receiving");
-    	}
-		else {
-		globalText = "Phone not\nconnected";
- 		
+		if (comms has :makeJsonRequest)
+		{
+			if (currentsettings.phoneConnected) {
+			globalText = "Awaiting\nResults";
+	 		//comms.makeJsonRequest(url ,{} ,{} ,{});
+	    	comms.makeJsonRequest(url ,{"count"=>graphpts} ,null ,method(:onGraphReceive));
+	    	sys.println ("Receiving");
+	    	}
+			else {
+			globalText = "Phone not\nconnected";
+	 		
+			}
 		}
-
-
+		else 
+		{
+		globalText = "Cannot connect\nAsk Garmin";
+		}
 	}
 
 	

@@ -203,6 +203,9 @@ class CGMWidgetView extends Ui.View
 			dc.setColor(Gfx.COLOR_GREEN, Gfx.COLOR_BLACK);
 	        dc.drawLine((0.33* devicewd.toNumber()), (0.66* devicehgt.toNumber()), (0.66* devicewd.toNumber()), (0.66* devicehgt.toNumber()));
  		}
+ 		
+ 		// start of always on experiment
+ 		//tmr.start(method(:onShow), 9000, false);
     //End of onUpdate function
     }
 
@@ -211,5 +214,7 @@ class CGMWidgetView extends Ui.View
     //! memory.
     function onHide() {
    			   // Ui.popView(Ui.SLIDE_IMMEDIATE);
+					
+
     }
 }

@@ -35,7 +35,7 @@
 
  
 <properties>
-    <property id="appVersion" type="string">0.0.7</property>
+    <property id="appVersion" type="string">0.0.8</property>
     <property id="sitename" type="string">phimbycgm</property>
 </properties>
 

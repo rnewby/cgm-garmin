@@ -5,6 +5,8 @@ using Toybox.Application as App;
 
 class CGMWidgetDelegate extends Ui.BehaviorDelegate
 {
+
+hidden var mainmenu;
 //********************************************************************************************
 // This is the main control in the app.  
 //This enables the menu function on the main screen and can be used to set ontap and on swipe behaviours
@@ -20,8 +22,11 @@ class CGMWidgetDelegate extends Ui.BehaviorDelegate
 
     function onMenu()
     {	
+    
+    	mainmenu = new Rez.Menus.MainMenu();
+		//mainmenu.setTitle("Main");
         //Ui.pushView( new CGMMenu(), new CGMMenuDelegate(), Ui.SLIDE_IMMEDIATE );
-        Ui.pushView( new Rez.Menus.MainMenu(), new CGMMenuDelegate(), Ui.SLIDE_IMMEDIATE );
+        Ui.pushView( mainmenu, new CGMMenuDelegate(), Ui.SLIDE_IMMEDIATE );
         //return true;
 		sys.println ("Menu pressed");
 		return true;
@@ -117,24 +122,34 @@ class SettingsMenuDelegate extends Ui.MenuInputDelegate
     	{
   		sys.println ("CGMMenuDelegate entered");
         if (item == :item_1) 
-        	{
+        {
 			//  Need to adjust this so that the settings menu does different things
-			settingID = "sitename";
+			if (Ui has :TextPicker)
+			{
+				settingID = "sitename";
+	        	hidesite = apprun.getProperty("hidesite");
+				sys.println(hidesite);
+				
+				if (hidesite) 
+				{
+					sys.println("True");
+					settingText = "";
+	        	}
+	        	else
+	        	{
+					settingText = apprun.getProperty("sitename");
+	        	}
+	        	        	
+				Ui.pushView(new Ui.TextPicker(settingText), new TextPickerListener(), Ui.SLIDE_DOWN );
+			}
+			else
+			{
+				mainmenu.setTitle("No Text Picker");
+				globalText = "No Text\nPicker";
+				sys.println("No Text Picker");
+			}
 			
-        	hidesite = apprun.getProperty("hidesite");
-			sys.println(hidesite);
-			
-			if (hidesite) {
-			sys.println("True");
-			settingText = "";
-        	}
-        	else{
-			settingText = apprun.getProperty("sitename");
-        	}
-        	        	
-			Ui.pushView(new Ui.TextPicker(settingText), new TextPickerListener(), Ui.SLIDE_DOWN );
-
-			} 
+		} 
         else if (item == :item_2) 
         	{
             // Do something else here
@@ -234,17 +249,17 @@ class SiteSelectMenuDelegate extends Ui.MenuInputDelegate {
   		//sys.println ("SettingsSelectMenuDelegate entered, current value is");
         if (item == :item_1) 
         	{
-			settingText = "mysitename";
+			settingText = "phimbycgm";
 			globalText = settingText;
 			} 
         else if (item == :item_2) 
         	{
-			settingText = "hollywood";
+			settingText = "Franky";
 			globalText = "Snake";
         	}
        	else if (item == :item_3) 
         	{
-			settingText = "Ns-horse";
+			settingText = "Nightscout-gg";
 			globalText = "Horse";
         	}
         	
